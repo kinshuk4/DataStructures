@@ -3,9 +3,7 @@ package com.vaani.ds.tree.avl;
 public class AvlNode {
 
 	private int value;
-
 	private AvlNode left;
-
 	private AvlNode right;
 
 	private int height;
@@ -13,11 +11,8 @@ public class AvlNode {
 	public AvlNode(int value) {
 
 		this.value = value;
-
 		left = null;
-
 		right = null;
-
 		height = 0;
 
 	}

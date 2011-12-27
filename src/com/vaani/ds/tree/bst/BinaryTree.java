@@ -1,38 +1,19 @@
 package com.vaani.ds.tree.bst;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 
 // BinaryTree.java
-public class BinaryTree<T extends Comparable> {
+public class BinaryTree<T extends Comparable<T>> {
 	// Root node pointer. Will be null for an empty tree.
-	private Node root;
+	private BSTNode<T> root;
 
-	/**
-   --Node--
-   The binary tree is built using this nested node class.
-   Each node stores one data element, and has left and right
-   sub-tree pointer which may be null.
-   The node is a "dumb" nested class -- we just use it for
-   storage; it does not have any methods.
-	 */
-	private  class Node {
-		Node left;
-		Node right;
-		T data;
-
-		Node(T newData) {
-			left = null;
-			right = null;
-			data = newData;
-		}
-	}
-
+	
 	/**
    Creates an empty binary tree -- a null root pointer.
 	 */
-	public void BinaryTree() {
+	public BinaryTree() {
 		root = null;
 	}
 
@@ -50,7 +31,7 @@ public class BinaryTree<T extends Comparable> {
    Recursive lookup  -- given a node, recur
    down searching for the given data.
 	 */
-	private boolean lookup(Node node, T data) {
+	private boolean lookup(BSTNode<T> node, T data) {
 		if (node==null) {
 			return(false);
 		}
@@ -82,9 +63,9 @@ public class BinaryTree<T extends Comparable> {
    node pointer (the standard way to communicate
    a changed pointer back to the caller).
 	 */
-	private Node insert(Node node, T data) {
+	private BSTNode<T> insert(BSTNode<T> node, T data) {
 		if (node==null) {
-			node = new Node(data);
+			node = new BSTNode<T>(data);
 		}
 		else {
 			if (data.compareTo(node.data)<=0) {
@@ -108,7 +89,7 @@ public class BinaryTree<T extends Comparable> {
 		return(size(root));
 	}
 
-	private int size(Node node) {
+	private int size(BSTNode<T> node) {
 		if (node == null) return(0);
 		else {
 			return(size(node.left) + 1 + size(node.right));
@@ -124,7 +105,7 @@ public class BinaryTree<T extends Comparable> {
 		return(maxDepth(root));
 	}
 
-	private int maxDepth(Node node) {
+	private int maxDepth(BSTNode<T> node) {
 		if (node==null) {
 			return(0);
 		}
@@ -141,8 +122,8 @@ public class BinaryTree<T extends Comparable> {
 		return (maxValue(root));
 
 	}
-	private T maxValue(Node node){
-		Node current = node;
+	private T maxValue(BSTNode<T> node){
+		BSTNode<T> current = node;
 		while (current.right != null) {
 			current = current.right;
 		}
@@ -163,8 +144,8 @@ public class BinaryTree<T extends Comparable> {
 	/**
 	 Finds the min value in a non-empty binary search tree.
 	 */
-	private T minValue(Node node) {
-		Node current = node;
+	private T minValue(BSTNode<T> node) {
+		BSTNode<T> current = node;
 		while (current.left != null) {
 			current = current.left;
 		}
@@ -181,7 +162,7 @@ public class BinaryTree<T extends Comparable> {
 		System.out.println();
 	}
 
-	private void printTree(Node node) {
+	private void printTree(BSTNode<T> node) {
 		if (node == null) return;
 
 		// left, node itself, right
@@ -199,7 +180,7 @@ public class BinaryTree<T extends Comparable> {
 		System.out.println();
 	}
 
-	public void printPostorder(Node node) {
+	public void printPostorder(BSTNode<T> node) {
 		if (node == null) return;
 
 		// first recur on both subtrees
@@ -225,7 +206,7 @@ public class BinaryTree<T extends Comparable> {
 	}
 
 	/*Presently works only for integer */
-	private boolean hasPathSum(Node node, int sum) {
+	private boolean hasPathSum(BSTNode<T> node, int sum) {
 		// return true if we run out of tree and sum==0
 
 
@@ -254,7 +235,7 @@ public class BinaryTree<T extends Comparable> {
 	 the path from the root node up to but not including this node,
 	 prints out all the root-leaf paths.
 	 */
-	private void printPaths(Node node, ArrayList<T> path, int pathLen) {
+	private void printPaths(BSTNode<T> node, ArrayList<T> path, int pathLen) {
 		if (node==null) return;
 
 		// append this node to the path array
@@ -307,14 +288,14 @@ public class BinaryTree<T extends Comparable> {
 		mirror(root);
 	}
 
-	private void mirror(Node node) {
+	private void mirror(BSTNode<T> node) {
 		if (node != null) {
 			// do the sub-trees
 			mirror(node.left);
 			mirror(node.right);
 
 			// swap the left/right pointers
-			Node temp = node.left;
+			BSTNode<T> temp = node.left;
 			node.left = node.right;
 			node.right = temp;
 		}
@@ -346,8 +327,8 @@ public class BinaryTree<T extends Comparable> {
 		doubleTree(root);
 	}
 
-	private void doubleTree(Node node) {
-		Node oldLeft;
+	private void doubleTree(BSTNode<T> node) {
+		BSTNode<T> oldLeft;
 
 		if (node == null) return;
 
@@ -357,22 +338,22 @@ public class BinaryTree<T extends Comparable> {
 
 		// duplicate this node to its left
 		oldLeft = node.left;
-		node.left = new Node(node.data);
+		node.left = new BSTNode<T>(node.data);
 		node.left.left = oldLeft;
 	}
 	/*
 	 Compares the receiver to another tree to
 	 see if they are structurally identical.
 	 */
-	public boolean sameTree(BinaryTree other) {
-		return( sameTree(root, (Node) other.root) );
+	public boolean sameTree(BinaryTree<T> other) {
+		return( sameTree(root, (BSTNode<T>) other.root) );
 	}
 
 	/**
 	 Recursive helper -- recurs down two trees in parallel,
 	 checking to see if they are identical.
 	 */
-	boolean sameTree(Node a, Node b) {
+	boolean sameTree(BSTNode<T> a, BSTNode<T> b) {
 		// 1. both empty -> true
 		if (a==null && b==null) return(true);
 
@@ -400,7 +381,7 @@ public class BinaryTree<T extends Comparable> {
 	 Recursive helper -- checks if a tree is a BST
 	 using minValue() and maxValue() (not efficient).
 	 */
-	private boolean isBST(Node node) {
+	private boolean isBST(BSTNode<T> node) {
 		if (node==null) return(true);
 
 		// do the subtrees contain values that do not
@@ -432,7 +413,7 @@ public class BinaryTree<T extends Comparable> {
 	  its nodes are within the min..max range. Works in O(n) time --
 	  visits each node only once.
 	 */
-	private boolean isBST2(Node node, int min, int max) {
+	private boolean isBST2(BSTNode<T> node, int min, int max) {
 		if (node==null) {
 			return(true);
 		}
@@ -450,7 +431,7 @@ public class BinaryTree<T extends Comparable> {
 		}
 	}
 
-	public Node findFirstCommonAncestor(T p,T q) {
+	public BSTNode<T> findFirstCommonAncestor(T p,T q) {
 
 		if (root == null) {
 			return null;
@@ -462,13 +443,13 @@ public class BinaryTree<T extends Comparable> {
 
 	}
 
-	private Node findFirstCommonAncestor(Node start, T p, T q){
+	private BSTNode<T> findFirstCommonAncestor(BSTNode<T> start, T p, T q){
 		if (start.data == p || start.data == q) {
 			return start;
 		}
 
-		Node left = findFirstCommonAncestor(root.left, p, q);
-		Node right = findFirstCommonAncestor(root.right, p, q);
+		BSTNode<T> left = findFirstCommonAncestor(root.left, p, q);
+		BSTNode<T> right = findFirstCommonAncestor(root.right, p, q);
 
 		if ((left == p && right == q) ||
 				(left == q && right == q)) {
