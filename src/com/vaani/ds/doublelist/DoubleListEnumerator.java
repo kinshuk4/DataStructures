@@ -4,13 +4,13 @@ import java.util.Enumeration;
 
 import com.vaani.ds.exception.NoSuchElementException;
 
-final class DoubleListEnumerator implements Enumeration {  
-	  DoubleLinkedList list;
+final class DoubleListEnumerator<E> implements Enumeration {  
+	  DoubleLinkedList<E> list;
 	  DoubleListIterator cursor;
 
 	
 
-	  DoubleListEnumerator(DoubleLinkedList l) {
+	  DoubleListEnumerator(DoubleLinkedList<E> l) {
 	    list = l;
 	    cursor = list.head();
 	    cursor.next();
@@ -23,7 +23,7 @@ final class DoubleListEnumerator implements Enumeration {
 	  public Object nextElement() {
 	    synchronized (list) {
 	      if (cursor.pos != list.head) {
-	        Object object = cursor.pos.obj;
+	        Object object = cursor.pos.value;
 	        cursor.next();
 	        return object;
 	      }

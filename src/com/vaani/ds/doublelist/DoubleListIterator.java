@@ -35,6 +35,6 @@ final class DoubleListIterator {
 	  * move to previous position
 	  */
 	  public void previous() {
-	    pos = pos.previous;
+	    pos = pos.prev;
 	  }
 	}
