@@ -11,6 +11,5 @@ public class ListNode<T>{
 	public String toString(){
 		return data.toString();
 	}
-
 }
 
