@@ -2,7 +2,7 @@ package com.vaani.ds.list;
 
 import java.util.Iterator;
 
-import com.vaani.ds.utils.LinkListUtil;
+import com.vaani.ds.util.LinkListUtil;
 
 public class LinkedList<T> {
 	ListNode<T> head;
