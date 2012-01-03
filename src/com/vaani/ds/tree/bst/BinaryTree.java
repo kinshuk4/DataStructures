@@ -1,6 +1,7 @@
 package com.vaani.ds.tree.bst;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 
 
@@ -9,7 +10,7 @@ public class BinaryTree<T extends Comparable<T>> {
 	// Root node pointer. Will be null for an empty tree.
 	private BSTNode<T> root;
 
-	
+
 	/**
    Creates an empty binary tree -- a null root pointer.
 	 */
@@ -354,10 +355,10 @@ public class BinaryTree<T extends Comparable<T>> {
 	 checking to see if they are identical.
 	 */
 	boolean sameTree(BSTNode<T> a, BSTNode<T> b) {
-		// 1. both empty -> true
+		// 1. both empty . true
 		if (a==null && b==null) return(true);
 
-		// 2. both non-empty -> compare them
+		// 2. both non-empty . compare them
 		else if (a!=null && b!=null) {
 			return(
 					a.data == b.data &&
@@ -365,7 +366,7 @@ public class BinaryTree<T extends Comparable<T>> {
 					sameTree(a.right, b.right)
 					);
 		}
-		// 3. one empty, one not -> false
+		// 3. one empty, one not . false
 		else return(false);
 	} 
 
@@ -460,5 +461,83 @@ public class BinaryTree<T extends Comparable<T>> {
 	}
 
 
+	public  static <T> void inOrderNonRecursiveStack(BSTNode<T> root)
+	{
+		/* set current to root of binary tree */
+		BSTNode<T> current = root;
+		Stack<BSTNode<T>>  s = new Stack<BSTNode<T>>();  /* Initialize stack s */
+		boolean done = false;
+
+		while (!done)
+		{
+			/* Reach the left most tNode of the current tNode */
+			if(current !=  null)
+			{
+				/* place pointer to a tree node on the stack before traversing
+	        the node's left subtree */
+				s.push(current);
+				current = current.left;
+			}
+
+			/* backtrack from the empty subtree and visit the tNode
+	       at the top of the stack; however, if the stack is empty,
+	      you are done */
+			else
+			{
+				if (!s.empty())
+				{
+					current = s.pop();
+					System.out.print( current.data+" ");
+
+					/* we have visited the node and its left subtree.
+	          Now, it's right subtree's turn */
+					current = current.right;
+				}
+				else
+					done = false;
+			}
+		} /* end of while */
+	}  
+
+	public static <T> void MorrisTraversal(BSTNode<T> root )
+	{
+		BSTNode<T> current,pre;
+
+		if(root == null)
+			return; 
+
+		current = root;
+		while(current != null)
+		{
+			if(current.left == null)
+			{
+				System.out.print(current.data+" ");
+				current = current.right;
+			}
+			else
+			{
+				/* Find the inorder predecessor of current */
+				pre = current.left;
+				while(pre.right != null && pre.right != current)
+					pre = pre.right;
+
+				/* Make current as right child of its inorder predecessor */
+				if(pre.right == null)
+				{
+					pre.right = current;
+					current = current.left;
+				}
+
+				/* Revert the changes made in if part to restore the original
+	        tree i.e., fix the right child of predecssor */
+				else
+				{
+					pre.right = null;
+					System.out.print(current.data+" ");
+					current = current.right;
+				} /* End of if condition pre.right == NULL */
+			} /* End of if condition current.left == NULL*/
+		} /* End of while */
+	}
 
 }
