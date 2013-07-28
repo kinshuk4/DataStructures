@@ -38,9 +38,12 @@ public class StackSort {
 
 		StackSort ss=new StackSort();
 
+		//initiate the stack of integers
 		Stack<Integer> stack=new Stack<Integer>();
+		//push the elements
 		stack.push(3);stack.push(4);stack.push(1);stack.push(2);
 
+		//sort the stack
 		ss.sort(stack);
 		for(int val: stack){
 			System.out.print(val+" ");
