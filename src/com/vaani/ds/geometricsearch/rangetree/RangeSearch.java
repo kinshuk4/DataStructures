@@ -1,6 +1,6 @@
 package com.vaani.ds.geometricsearch.rangetree;
 
-import com.vaani.ds.geometricsearch.interval.Interval;
+import com.vaani.ds.geometricsearch.interval.Interval1D;
 
 /*************************************************************************
  *  Compilation:  javac RangeSearch.java
@@ -38,7 +38,7 @@ import com.vaani.ds.geometricsearch.interval.Interval;
  *  pastry
  *  pasture
  *  pasty
- *  Copyright © 2007, Robert Sedgewick and Kevin Wayne.
+ *  Copyright ï¿½ 2007, Robert Sedgewick and Kevin Wayne.
 Last updated: Tue Jan 19 11:17:59 EST 2010. 
  * 
  *************************************************************************/
